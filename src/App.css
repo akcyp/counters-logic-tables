@@ -1,38 +1,27 @@
-.App {
+:root {
+  --mono1: #FFFFF0;
+  --mono2: #e5e5d8;
+  --mono3: #ccccc0;
+  --mono4: #b2b2a8;
+  --mono5: #999990;
+  --mono6: #7f7f78;
+  --mono7: #666660;
+  --mono8: #474743;
+  --mono9: #333330;
+  --mono10: #262624;
+  --mono11: #191918;
+  --mono12: #0d0d0c;
+  --light-important-color: #FF8A4D;
+  --med-important-color: #FF5800;
+  --dark-important-color: #B33E00;
+  --light-comp-color: #4DC1FF;
+  --med-comp-color: #00A7FF;
+  --dark-comp-color: #0075B3;
+}
+
+header div {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  color: var(--med-important-color);
+  font-style: oblique;
+  font-size: 2em;
 }
