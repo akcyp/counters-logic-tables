@@ -15,6 +15,7 @@ export function getCounterVal (input: boolean, output: boolean, system: 'SR' | '
   return vals[0];
 }
 
-export function getInitialTable (n: number) {
+export function getInitialTable (n: number, zeroMode = false) {
+  if (zeroMode) return Array.from({length: 2**n}, () => Array.from({length: n}, () => false));
   return Array.from({length: 2**n}, (_, i) => i.toString(2).padStart(n, '0').split('').map(s => s === '1'));
 }

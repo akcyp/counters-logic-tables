@@ -10,7 +10,7 @@ type CounterTableState = {
 };
 
 type CounterTableAction = {
-  type: 'increaseLength' | 'decreaseLength' | 'reset'
+  type: 'increaseLength' | 'decreaseLength' | 'reset' | 'zero'
 } | {
   type: 'toggle',
   x: number,
@@ -19,7 +19,8 @@ type CounterTableAction = {
 
 function counterTableReducer(state: CounterTableState, action: CounterTableAction) {
   switch (action.type) {
-    case 'reset': return { length: 3, table: getInitialTable(3) };
+    case 'reset': return { length: 4, table: getInitialTable(4) };
+    case 'zero': return { length: 4, table: getInitialTable(4, true) };
     case 'toggle': {
       const newTable = [...state.table.map(arr => [...arr])];
       newTable[action.y][action.x] = !newTable[action.y][action.x];
@@ -54,7 +55,7 @@ function CounterTable() {
                 // dispatchCounterTable({ type: 'decreaseLength' });
               }}>-</td>
               {Array.from({length: counterTable.length}, (_, n) => (
-                <th key={n}>Q{n+1}</th>
+                <th key={n}>Q<small style={{fontSize: 'x-small'}}>{['D', 'C', 'B', 'A'][n]}</small></th>
               ))}
               <td onClick={() => {
                 // dispatchCounterTable({ type: 'increaseLength' });
@@ -76,8 +77,8 @@ function CounterTable() {
         </table>
         <div className="buttons-div">
           <button onClick={() => {
-            dispatchCounterTable({ type: 'reset' });
-          }}>Reset</button>
+            dispatchCounterTable({ type: 'zero' });
+          }}>Zero</button>
           <button onClick={() => setCountDirection(countDirection === 'forward' ? 'reverse' : 'forward')}>{countDirection}</button>
           <button onClick={() => setCountSystem(countSystem === 'D' ? 'SR' : (countSystem === 'SR' ? 'JK' : 'D'))}>{countSystem}</button>
         </div>

@@ -8,7 +8,11 @@ function ResultTable ({ table }: { table: (boolean | null)[][] }) {
     <table>
       <thead>
         <tr>
-          <th style={{fontSize: '8px'}}>Q3Q4<br/>Q1Q2</th>
+          <th style={{fontSize: '8px', transform: 'rotate(45deg)', color: 'white'}}>
+            Q<small>B</small>Q<small>A</small>
+            <hr/>
+            Q<small>D</small>Q<small>C</small>
+          </th>
           <th>00</th>
           <th>01</th>
           <th>11</th>
@@ -56,14 +60,14 @@ function ResultTables ({ index, countSystem, direction, table }: { index: number
     <div className="result-table-container">
       { countSystem[0] && (
         <div className="result-one-table-container">
-          <div>{countSystem[0]}{index+1}</div>
+          <div>{countSystem[0]}<small style={{fontSize: 'x-small'}}>{['D', 'C', 'B', 'A'][index]}</small></div>
           <ResultTable table={createPureTable(table, countSystem, direction, index, 0)}/>
           <br/>
         </div>
       )}
       { countSystem[1] && (
         <div className="result-one-table-container">
-          <div>{countSystem[1]}{index+1}</div>
+          <div>{countSystem[1]}<small style={{fontSize: 'x-small'}}>{['D', 'C', 'B', 'A'][index]}</small></div>
           <ResultTable table={createPureTable(table, countSystem, direction, index, 1)} />
           <br/>
         </div>
