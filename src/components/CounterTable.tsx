@@ -2,7 +2,7 @@ import { useReducer, useState } from 'react';
 import './CounterTable.css';
 import ResultTables from './ResultTables';
 
-import { getInitialTable } from '../helpers/systems';
+import { Direction, getInitialTable, System } from '../helpers/systems';
 
 type CounterTableState = {
   length: number;
@@ -10,7 +10,7 @@ type CounterTableState = {
 };
 
 type CounterTableAction = {
-  type: 'increaseLength' | 'decreaseLength' | 'reset' | 'zero'
+  type: 'reset' | 'zero'
 } | {
   type: 'toggle',
   x: number,
@@ -26,16 +26,7 @@ function counterTableReducer(state: CounterTableState, action: CounterTableActio
       newTable[action.y][action.x] = !newTable[action.y][action.x];
       return { length: state.length, table: newTable };
     }
-    case 'increaseLength': {
-      if (state.length > 3) break;
-      return { length: state.length + 1, table: getInitialTable(state.length + 1) };
-    }
-    case 'decreaseLength': {
-      if (state.length < 3) break;
-      return { length: state.length - 1, table: getInitialTable(state.length - 1) };
-    }
   }
-  return state;
 }
 
 function CounterTable() {
@@ -43,23 +34,24 @@ function CounterTable() {
     length: 4,
     table: getInitialTable(4)
   });
-  const [countDirection, setCountDirection] = useState<'forward' | 'reverse'>('forward');
-  const [countSystem, setCountSystem] = useState<'SR' | 'JK' | 'D'>('SR');
+  const [countDirection, setCountDirection] = useState<Direction>('forward');
+  const [countSystem, setCountSystem] = useState<System>('SR');
   return (
-    <div className="counter-system">
+    <div className="cards">
       <div className="counter-table-container">
-        <table className="counter-table">
+        <table>
           <thead>
             <tr>
-              <td onClick={() => {
-                // dispatchCounterTable({ type: 'decreaseLength' });
-              }}>-</td>
+              <th/>
               {Array.from({length: counterTable.length}, (_, n) => (
-                <th key={n}>Q<small style={{fontSize: 'x-small'}}>{['D', 'C', 'B', 'A'][n]}</small></th>
+                <th key={n}>
+                  Q
+                  <small>
+                    {['D', 'C', 'B', 'A'][n]}
+                  </small>
+                </th>
               ))}
-              <td onClick={() => {
-                // dispatchCounterTable({ type: 'increaseLength' });
-              }}>+</td>
+              <th/>
             </tr>
           </thead>
           <tbody>
@@ -69,18 +61,24 @@ function CounterTable() {
                 {bools.map((b, x) => (
                   <td key={x} onClick={() => {
                     dispatchCounterTable({ type: 'toggle', x, y });
-                  }}>{Number(b)}</td>
+                  }}>
+                    {Number(b)}
+                  </td>
                 ))}
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="buttons-div">
-          <button onClick={() => {
-            dispatchCounterTable({ type: 'zero' });
-          }}>Zero</button>
-          <button onClick={() => setCountDirection(countDirection === 'forward' ? 'reverse' : 'forward')}>{countDirection}</button>
-          <button onClick={() => setCountSystem(countSystem === 'D' ? 'SR' : (countSystem === 'SR' ? 'JK' : 'D'))}>{countSystem}</button>
+        <div className="buttons-container">
+          <button onClick={() => dispatchCounterTable({ type: 'zero' })}>
+            Zero
+          </button>
+          <button onClick={() => setCountDirection(countDirection === 'forward' ? 'reverse' : 'forward')}>
+            {countDirection}
+          </button>
+          <button onClick={() => setCountSystem(countSystem === 'D' ? 'SR' : (countSystem === 'SR' ? 'JK' : 'D'))}>
+            {countSystem}
+          </button>
         </div>
       </div>
       <div className="result-tables">

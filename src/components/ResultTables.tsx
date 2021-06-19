@@ -1,17 +1,18 @@
-// import { useReducer, useState } from 'react';
-import { getCounterVal } from '../helpers/systems';
+import { BoolArray, BoolTable, Direction, getCounterVal, System } from '../helpers/systems';
 import './ResultsTables.css';
 
-function ResultTable ({ table }: { table: (boolean | null)[][] }) {
-  const mapToTd = (arr: (boolean | null)[]) => arr.map((v) => v === null ? '-' : Number(v).toString()).map((v,i) => <td key={i}>{v}</td>);
+function ResultTable ({ table }: { table: BoolTable }) {
+  const mapToTd = (arr: BoolArray) => arr.map((v) => v === null ? '-' : Number(v).toString()).map((v,i) => <td key={i}>{v}</td>);
   return (
     <table>
       <thead>
         <tr>
-          <th style={{fontSize: '8px', transform: 'rotate(45deg)', color: 'white'}}>
-            Q<small>B</small>Q<small>A</small>
+          <th className="rotate">
+            Q<small>B</small>
+            Q<small>A</small>
             <hr/>
-            Q<small>D</small>Q<small>C</small>
+            Q<small>D</small>
+            Q<small>C</small>
           </th>
           <th>00</th>
           <th>01</th>
@@ -41,8 +42,8 @@ function ResultTable ({ table }: { table: (boolean | null)[][] }) {
   );
 }
 
-function createPureTable (table: boolean[][], countSystem: 'SR' | 'JK' | 'D', direction: 'reverse' | 'forward', idx: number, csn: number) {
-  const result: (boolean | null)[][] = [[],[],[],[]];
+function createPureTable (table: boolean[][], countSystem: System, direction: Direction, idx: number, csn: number) {
+  const result: BoolTable = [[],[],[],[]];
   for (let i = 0, l = table.length; i < l; i++) {
     const [q1, q2, q3, q4] = table[i].map(Number);
     const prev = table[i][idx];
@@ -55,21 +56,29 @@ function createPureTable (table: boolean[][], countSystem: 'SR' | 'JK' | 'D', di
   return result;
 }
 
-function ResultTables ({ index, countSystem, direction, table }: { index: number, countSystem: 'SR' | 'JK' | 'D', direction: 'reverse' | 'forward', table: boolean[][] }) {
+function ResultTables ({ index, countSystem, direction, table }: { index: number, countSystem: System, direction: Direction, table: boolean[][] }) {
   return (
     <div className="result-table-container">
       { countSystem[0] && (
-        <div className="result-one-table-container">
-          <div>{countSystem[0]}<small style={{fontSize: 'x-small'}}>{['D', 'C', 'B', 'A'][index]}</small></div>
+        <div className="result-table">
+          <div>
+            {countSystem[0]}
+            <small>
+              {['D', 'C', 'B', 'A'][index]}
+            </small>
+          </div>
           <ResultTable table={createPureTable(table, countSystem, direction, index, 0)}/>
-          <br/>
         </div>
       )}
       { countSystem[1] && (
-        <div className="result-one-table-container">
-          <div>{countSystem[1]}<small style={{fontSize: 'x-small'}}>{['D', 'C', 'B', 'A'][index]}</small></div>
+        <div className="result-table">
+          <div>
+            {countSystem[1]}
+            <small>
+              {['D', 'C', 'B', 'A'][index]}
+            </small>
+          </div>
           <ResultTable table={createPureTable(table, countSystem, direction, index, 1)} />
-          <br/>
         </div>
       )}
     </div>

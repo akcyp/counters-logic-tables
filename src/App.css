@@ -25,3 +25,69 @@ header div {
   font-style: oblique;
   font-size: 2em;
 }
+
+.cards {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+table {
+  flex-grow: 1;
+  font-size: 1.25rem;
+  width: auto;
+  height: auto;
+  border-collapse: collapse;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding-bottom: 2vh;
+}
+
+table td, table th {
+  padding: 5px;
+  text-align: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  border: 0px;
+}
+
+table th {
+  background-color: var(--mono10);
+  color: var(--light-important-color);
+}
+
+table td {
+  background-color: var(--mono10);
+  cursor: pointer;
+}
+
+table td:hover {
+  background-color: var(--dark-important-color);
+  color: var(--mono1);
+}
+
+table tbody tr:nth-child(odd) > td:nth-child(odd), table tbody tr:nth-child(even) > td:nth-child(even) {
+  background-color: var(--mono8);
+}
+table tbody tr:nth-child(odd) > td:nth-child(odd):hover, table tbody tr:nth-child(even) > td:nth-child(even):hover {
+  background-color: var(--light-important-color);
+  color: var(--mono12);
+}
+
+button {
+  padding: 0.25rem;
+  background: var(--light-important-color);
+  color: var(--mono10);
+  border: none;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+  outline: inherit;
+  margin: 5px;
+}
