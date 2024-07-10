@@ -16,8 +16,8 @@ function ResultTable ({ table }: { table: BoolTable }) {
           </th>
           <th>00</th>
           <th>01</th>
-          <th>11</th>
           <th>10</th>
+          <th>11</th>
         </tr>
       </thead>
       <tbody>
@@ -30,11 +30,11 @@ function ResultTable ({ table }: { table: BoolTable }) {
           { mapToTd(table[1]) }
         </tr>
         <tr>
-          <th>11</th>
+          <th>10</th>
           { mapToTd(table[2]) }
         </tr>
         <tr>
-          <th>10</th>
+          <th>11</th>
           { mapToTd(table[3]) }
         </tr>
       </tbody>
@@ -49,8 +49,8 @@ function createPureTable (table: boolean[][], countSystem: System, direction: Di
     const prev = table[i][idx];
     const next = (table[i + (direction === 'forward' ? 1 : -1)] || (direction === 'forward' ? table[0] : table[l - 1]))[idx];
     const r = getCounterVal(prev, next, countSystem, countSystem[csn]);
-    const x = ['00', '01', '11', '10'].indexOf(`${q1}${q2}`);
-    const y = ['00', '01', '11', '10'].indexOf(`${q3}${q4}`);
+    const x = ['00', '01', '10', '11'].indexOf(`${q1}${q2}`);
+    const y = ['00', '01', '10', '11'].indexOf(`${q3}${q4}`);
     result[x][y] = r;
   }
   return result;
