@@ -9,6 +9,6 @@ Webpage for "basics of computer components" classes. Generator for counter table
 ## Installation
 
 ```sh
-yarn install
-yarn start
+npm install
+npm run dev
 ```
